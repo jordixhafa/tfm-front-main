@@ -1,0 +1,113 @@
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
+      User registration
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+          Name
+        </label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          @if (form.get('name')?.invalid && form.get('name')?.touched) {
+            <p
+              class="text-sm text-red-600 mt-1"
+              >
+              Name is required
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <p
+                class="text-sm text-red-600 mt-1"
+                >
+                Invalid email
+              </p>
+            }
+          </div>
+
+          <div>
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                <p
+                  class="text-sm text-red-600 mt-1"
+                  >
+                  At least 6 characters
+                </p>
+              }
+            </div>
+
+            <div>
+              <label
+                for="confirm"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >
+                Confirm password
+              </label>
+              <input
+                id="confirm"
+                type="password"
+                formControlName="confirmPassword"
+                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                @if (
+                  form.hasError('mismatch') && form.get('confirmPassword')?.touched
+                  ) {
+                  <p
+                    class="text-sm text-red-600 mt-1"
+                    >
+                    Passwords do not match
+                  </p>
+                }
+              </div>
+
+              <!-- Botón -->
+              <button
+                type="submit"
+                [disabled]="form.invalid || loading"
+                class="w-full bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
+                >
+                {{ loading ? "Registering..." : "Register" }}
+              </button>
+            </form>
+
+            @if (error) {
+              <p class="text-red-500 text-sm mt-2 text-center">
+                {{ error }}
+              </p>
+            }
+
+            <p class="text-center text-sm text-gray-600 mt-6">
+              Do you have an account?
+              <a routerLink="/login" class="text-blue-600 hover:underline"> Login </a>
+            </p>
+          </div>
+        </div>

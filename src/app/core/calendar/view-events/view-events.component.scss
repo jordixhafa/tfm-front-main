@@ -1,0 +1,12 @@
+.calendar-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+@media screen and (max-width: 735px) {
+  .calendar-container > div {
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+  }
+}

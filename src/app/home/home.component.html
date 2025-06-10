@@ -1,0 +1,93 @@
+<div class="flex min-h-screen bg-gray-100">
+  <aside
+    class="w-64 bg-white shadow-md hidden md:flex flex-col justify-between"
+    aria-label="Menú lateral principal"
+    >
+    <div class="p-6">
+      <h2 class="text-2xl font-bold mb-6">Mi App</h2>
+      <nav class="space-y-4" aria-label="Navegación principal">
+        <a
+          routerLink="/home/calendar"
+          routerLinkActive="font-semibold text-blue-600"
+          class="block text-gray-700 hover:text-blue-500"
+          >
+          📅 Calendar
+        </a>
+        <a
+          routerLink="/home/account"
+          routerLinkActive="font-semibold text-blue-600"
+          class="block text-gray-700 hover:text-blue-500"
+          >
+          👤 My account
+        </a>
+      </nav>
+    </div>
+    <div class="p-6">
+      <button
+        (click)="logout()"
+        class="block w-full text-red-500 hover:text-red-600 cursor-pointer"
+        >
+        🔒 Logout
+      </button>
+    </div>
+  </aside>
+
+  @if (isMobileMenuOpen) {
+    <div
+      class="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
+      (click)="toggleMobileMenu()"
+      (keydown)="$event.stopPropagation()"
+    ></div>
+  }
+
+  <aside
+    class="fixed top-0 left-0 w-64 h-full bg-white shadow-md z-50 transform transition-transform duration-300 ease-in-out md:hidden"
+    [ngClass]="{
+      '-translate-x-full': !isMobileMenuOpen,
+      'translate-x-0': isMobileMenuOpen
+    }"
+    aria-label="Menú lateral móvil"
+    >
+    <div class="p-6 flex flex-col justify-between h-full">
+      <div>
+        <h2 class="text-2xl font-bold mb-6">My App</h2>
+        <nav class="space-y-4" aria-label="Navegación principal">
+          <a
+            (click)="toggleMobileMenu()"
+            routerLink="/calendar"
+            class="block text-gray-700 hover:text-blue-500"
+            >
+            📅 Calendar
+          </a>
+          <a
+            (click)="toggleMobileMenu()"
+            routerLink="/account"
+            class="block text-gray-700 hover:text-blue-500"
+            >👤 My account
+          </a>
+        </nav>
+      </div>
+      <div>
+        <button
+          (click)="logout()"
+          class="block w-full text-red-500 hover:text-red-600"
+          >
+          🔒 Logout
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 p-6">
+    <div class="md:hidden mb-4">
+      <button
+        (click)="toggleMobileMenu()"
+        class="text-gray-700 focus:outline-none"
+        >
+        ☰ Menú
+      </button>
+    </div>
+
+    <router-outlet></router-outlet>
+  </main>
+</div>
